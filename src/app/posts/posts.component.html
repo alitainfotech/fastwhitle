@@ -1,0 +1,25 @@
+<div class="col-md-12">
+	<table class="table">
+		<thead>
+			<td>Title</td>
+			<td>Body</td>
+			<td>Action</td>
+		</thead>
+		<tbody>
+			<tr *ngFor="let post of posts">
+				<td>{{post.title}}</td>
+				<td>{{post.body}}</td>
+				<td>
+					<div *ngIf="post.status == 1; else elseBlock">Active</div>
+					<ng-template #elseBlock>Inactive</ng-template>
+				</td>
+				<td>
+					<a href="/editpost" routerLink="/editpost/{{post._id}}">Edit </a> | 
+					<a href="/deletepost" routerLink="/deletepost/{{post._id}}">Delete </a>
+				</td>
+			</tr>
+		</tbody>
+			
+	</table>
+  <!-- {{posts}} -->
+</div>
