@@ -10,6 +10,8 @@ var controller = require('../controllers/post_controller');
 
 router.get('/',checkUserAuthenticate,(req,res)=>{ controller.get_all_posts(req,res) });
 
+router.get('/:id',checkUserAuthenticate,(req,res)=>{ controller.get_single_post(req,res) });
+
 router.get('/show',checkUserAuthenticate,(req,res)=>{ controller.get_active_inactive_post_count(req,res) });
 
 router.post('/',checkUserAuthenticate,(req,res)=>{ controller.store_single_post(req,res) });

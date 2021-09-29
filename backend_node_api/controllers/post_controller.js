@@ -30,6 +30,42 @@ class post_controller {
         });
     }
 
+    get_single_post(req,res){
+        const schema = Joi.object({
+            params: Joi.object({
+                id: Joi.string().required(),
+            })
+        });
+
+        const { error, value } = schema.validate(req.body, schema_options);
+
+        if (!error) {
+            const user = jwt_token_decode(req);
+            post_model.find({
+                _id : req.params.id,
+                created_by : user.id
+            }).then(post=>{
+                if(Object.keys(post).length > 0){
+                    res.status(200).json({
+                        message:'get single post successfully',
+                        success:true,
+                        data:{
+                            post
+                        }
+                    });
+                } else {
+                    res.status(200).json({
+                        message:'sorry post record is not found!',
+                        success:true,
+                        data:{}
+                    });
+                }
+            }).catch(err=>{
+                console.log(err);
+            });
+        }
+    }
+
     get_active_inactive_post_count(req,res){
         post_model.aggregate().group({
             _id: { status:'$status'},

@@ -98,8 +98,6 @@ class auth_controller {
                         email: req.body.email,
                         password: bcrypt.hashSync(req.body.password, saltRounds)
                     }).then(user=>{
-                        console.log(user);
-
                         jwt.sign({
                             id:user._id,
                             fullname:user.fullname,
@@ -113,7 +111,6 @@ class auth_controller {
                                 }
                             });
                         });
-
                     }).catch(err=>{
                         console.log(err);
                         res.status(400).json({
